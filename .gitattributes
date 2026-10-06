@@ -1,0 +1,18 @@
+# Keep the sources LF everywhere. A CRLF checkout would change the SHA-256
+# identity hash inputs in naming.js and, more visibly, make the generated
+# inlined block in client.js differ from the one sync-client-data.mjs produces.
+* text=auto eol=lf
+
+*.js   text eol=lf
+*.mjs  text eol=lf
+*.yml  text eol=lf
+*.json text eol=lf
+*.md   text eol=lf
+
+# Keep Windows from rewriting the patch loader with CRLF: a loader list is
+# YAML and a stray carriage return there is a parse error on the next read.
+cordis.patch.yml text eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary

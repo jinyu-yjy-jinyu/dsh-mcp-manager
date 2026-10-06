@@ -1,0 +1,59 @@
+{
+  "name": "dsh-mcp-manager",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "MCP 设置页 —— 在 DSH 设置中管理外部 MCP 服务器，填写表单或导入 mcp.json，Agent 即可自由调用其工具",
+  "license": "MIT",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "src",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "sync": "node scripts/sync-client-data.mjs",
+    "sync:check": "node scripts/sync-client-data.mjs --check",
+    "test": "node --test test/*.test.mjs",
+    "test:all": "npm run sync:check && npm test"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "mcp",
+    "model-context-protocol"
+  ],
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": []
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4.0.1 <5.0.0",
+    "@deepseek-ai/dsh-mcp-client": "^0.2.0-rc.2",
+    "@deepseek-ai/dsh-subprocess": "^0.2.0-rc.2",
+    "@deepseek-ai/dsh-tools": "^0.2.0-rc.2",
+    "@deepseek-ai/schemastery": "^3.18.4",
+    "react": "^18.2.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  }
+}

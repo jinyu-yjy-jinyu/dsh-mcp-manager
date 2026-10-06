@@ -1,0 +1,96 @@
+/**
+ * Copy for the MCP settings page.
+ *
+ * Kept in its own dependency-free module so both halves of the plugin can read
+ * it and so the keys stay greppable from the page without a dictionary import
+ * in the Host bundle.
+ */
+
+/** Dictionary namespace owned by this plugin's browser half. */
+export const NS = 'settings.mcpManager'
+
+/** Simplified Chinese copy. */
+export const ZH = {
+  title: 'MCP',
+  description: '管理外部 MCP 服务器。配置保存后，Agent 即可在对话中自由调用这些服务器提供的工具。',
+  empty: '还没有配置 MCP 服务器。点击「添加服务器」逐条填写，或导入现成的 mcp.json。',
+  'action.add': '添加服务器',
+  'action.import': '导入 JSON',
+  'action.export': '导出 JSON',
+  'action.save': '保存',
+  'action.saving': '保存中…',
+  'action.delete': '删除',
+  'action.rename': '重命名',
+  'action.cancel': '取消',
+  'action.copy': '复制',
+  'action.importNow': '导入',
+  'toggle': '启用该服务器',
+  'transport.label': '传输方式',
+  'transport.stdio': '本地进程（stdio）',
+  'transport.http': '远程服务（Streamable HTTP）',
+  'field.id': '名称',
+  'field.command': '启动命令',
+  'field.args': '参数',
+  'field.cwd': '工作目录',
+  'field.url': '接口地址',
+  'field.timeout': '单次调用超时（毫秒）',
+  'hint.tools': '工具将以 {prefix}<工具名> 的形式提供给 Agent。',
+  'hint.env': '环境变量（JSON 对象）',
+  'hint.headers': '请求头（JSON 对象）',
+  'status.ready': '已连接 · {count} 个工具',
+  'status.connecting': '连接中…',
+  'status.reconnecting': '重连中…',
+  'status.failed': '连接失败',
+  'status.stopped': '未连接',
+  'dialog.import': '导入 mcp.json',
+  'dialog.export': '导出 mcp.json',
+  'preview.import': '将新增：{added}；将覆盖同名服务器：{replaced}',
+  'result.imported': '已导入。新增：{added}；覆盖：{replaced}。点击「保存」生效。',
+  'result.copied': '已复制到剪贴板。',
+  'error.save': '保存失败：设置已被其它改动更新，请重试。',
+  'error.copy': '复制失败，请手动选择文本复制。',
+  'error.load': '无法读取 MCP 设置。',
+}
+
+/** English copy. */
+export const EN = {
+  title: 'MCP',
+  description: 'Manage external MCP servers. Once saved, the agent can freely call the tools these servers provide.',
+  empty: 'No MCP server configured yet. Use “Add server” to fill one in, or import an existing mcp.json.',
+  'action.add': 'Add server',
+  'action.import': 'Import JSON',
+  'action.export': 'Export JSON',
+  'action.save': 'Save',
+  'action.saving': 'Saving…',
+  'action.delete': 'Delete',
+  'action.rename': 'Rename',
+  'action.cancel': 'Cancel',
+  'action.copy': 'Copy',
+  'action.importNow': 'Import',
+  toggle: 'Enable this server',
+  'transport.label': 'Transport',
+  'transport.stdio': 'Local process (stdio)',
+  'transport.http': 'Remote service (Streamable HTTP)',
+  'field.id': 'Name',
+  'field.command': 'Command',
+  'field.args': 'Arguments',
+  'field.cwd': 'Working directory',
+  'field.url': 'Endpoint URL',
+  'field.timeout': 'Per-call timeout (ms)',
+  'hint.tools': 'Tools reach the agent as {prefix}<tool name>.',
+  'hint.env': 'Environment variables (JSON object)',
+  'hint.headers': 'Request headers (JSON object)',
+  'status.ready': 'Connected · {count} tools',
+  'status.connecting': 'Connecting…',
+  'status.reconnecting': 'Reconnecting…',
+  'status.failed': 'Failed',
+  'status.stopped': 'Not connected',
+  'dialog.import': 'Import mcp.json',
+  'dialog.export': 'Export mcp.json',
+  'preview.import': 'Will add: {added}; will replace same-name servers: {replaced}',
+  'result.imported': 'Imported. Added: {added}; replaced: {replaced}. Click “Save” to apply.',
+  'result.copied': 'Copied to the clipboard.',
+  'error.save': 'Could not save: the settings changed underneath. Please retry.',
+  'error.copy': 'Copy failed; select the text and copy it manually.',
+  'error.load': 'Could not read the MCP settings.',
+}

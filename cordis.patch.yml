@@ -1,0 +1,8 @@
+# dsh-mcp-manager bundle patch.
+#
+# One insert mounts both halves from this single row: the Host half (name is this
+# package) and the browser half (bound by package.json's dsh.client declaration).
+- insert:
+    - id: mcp-manager
+      name: 'dsh-mcp-manager'
+      config: {}
