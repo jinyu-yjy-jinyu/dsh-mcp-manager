@@ -8,10 +8,10 @@
 
 ## 安装
 
-把本仓库推到 GitHub 后，在终端执行：
+在终端执行：
 
 ```bash
-dsh plugin --profile desktop add git+https://github.com/<你的用户名>/<仓库名>.git
+dsh plugin --profile desktop add git+https://github.com/jinyu-yjy-jinyu/dsh-mcp-manager.git
 ```
 
 `dsh plugin` 是 pnpm 的透传封装，所以 `add` / `rm` / `update` 都可用，git 依赖也是 pnpm 原生支持的。安装会自动完成两件事：
