@@ -183,11 +183,21 @@ async function buildBlock () {
     if (/^export\s+default\b/m.test(source)) {
       throw new Error(`sync-client-data: ${name} uses a default export; the inliner only handles named exports`)
     }
+    // The DSH shell seeds no Node builtin into the browser module table, so a
+    // `node:` import cannot be satisfied here. Refuse loudly instead of emitting
+    // a block that throws at boot with an opaque "missed the module table" —
+    // that is exactly how the first release failed.
+    if (/from\s*'node:[^']+'/m.test(source)) {
+      throw new Error(
+        `sync-client-data: ${name} imports a Node builtin, which the browser module table cannot resolve. `
+        + 'Keep it out of MODULES, or remove the dependency.',
+      )
+    }
     factories.push({ name, factory: toFactory(name, source) })
   }
 
   const define = factories
-    .map(({ name, factory }) => `      ${JSON.stringify(name)}: once(() => (${factory})(key => deps[key], { crypto: require('crypto') }, require))`)
+    .map(({ name, factory }) => `      ${JSON.stringify(name)}: once(() => (${factory})(key => deps[key], node, require))`)
     .join(',\n')
 
   const fill = factories
@@ -196,6 +206,12 @@ async function buildBlock () {
 
   return `${START}
     const moduleData = {}
+    // Placeholder for a module that imports a \`node:\` builtin. Deliberately
+    // empty: the DSH shell seeds no Node builtin into the browser module table,
+    // so a shared module that needs one cannot be inlined here and must be
+    // kept out of MODULES. naming.js used to need \`node:crypto\` for its identity
+    // hash; it now computes the digest itself, which is why this stays empty.
+    const node = {}
     const once = thunk => {
       let value
       let filled = false

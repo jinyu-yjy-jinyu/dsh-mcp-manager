@@ -1,0 +1,31 @@
+fix: drop the browser half's dependency on a crypto module
+
+The bundle asked for a bare "crypto" require, which the DSH browser module table
+does not seed, so the plugin failed to load at boot with
+
+    require("crypto") missed the module table
+
+The shell seeds exactly nine bare specifiers: react, react/jsx-runtime,
+react-dom, react-dom/client, cordis, dsh-client-store, and three dsh-client-ui-*
+packages. There is no crypto entry, and crypto.subtle is asynchronous, which
+would make publicToolName async and therefore unable to produce a tool name
+while registering.
+
+So naming.js now computes its own SHA-256. The Host half still had node:crypto
+available, but sharing one implementation keeps the two halves byte-identical by
+construction, which matters because the digest decides the tool name: a differing
+name would drop a server's session history and permission rules when it moved
+between this plugin and the official bridge.
+
+Two defects surfaced while proving that equality, both now covered by tests.
+
+The padding allocated a spare block whenever len + 9 was already block-aligned,
+corrupting the digest at identity lengths 55, 119, and 183 bytes and nowhere
+else. The correct count is ((len + 8) >> 6) + 1.
+
+test/client-bundle.test.mjs seeded crypto itself, so it passed against an
+invented table. It now carries the shell's real seed list and asserts the bundle
+stays inside it, so this class of failure cannot pass a test again.
+
+sync-client-data.mjs refuses to inline a module that imports a node: builtin, so
+the mistake surfaces at generation time with a clear message instead of at boot.
